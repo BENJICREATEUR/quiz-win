@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowledgeCash - Quiz</title>
+</head>
+<body>
+    <h1>Quiz KnowledgeCash</h1>
+    <div id="quiz-container">
+        <h2 id="question">Question:</h2>
+        <ul id="answers">
+            <li><button onclick="submitAnswer(this)"></button></li>
+            <li><button onclick="submitAnswer(this)"></button></li>
+            <li><button onclick="submitAnswer(this)"></button></li>
+        </ul>
+    </div>
+    <script>
+        // Fonction pour récupérer une question
+        function getQuestion() {
+            fetch('/get_question')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('question').innerText = data.question;
+                let answers = document.getElementById('answers').getElementsByTagName('button');
+                for (let i = 0; i < data.reponses.length; i++) {
+                    answers[i].innerText = data.reponses[i];
+                }
+            });
+        }
+
+        // Fonction pour soumettre une réponse
+        function submitAnswer(button) {
+            let userAnswer = button.innerText;
+            fetch('/submit_answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    question_id: 0, // Remplacer 0 par l'identifiant de la question
+                    user_answer: userAnswer
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.correct) {
+                    alert('Bonne réponse!');
+                    // Mettre à jour le score ou effectuer d'autres actions...
+                } else {
+                    alert('Mauvaise réponse. Essayez à nouveau!');
+                }
+                // Charger une nouvelle question après avoir répondu
+                getQuestion();
+            });
+        }
+
+        // Charger une question au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            getQuestion();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowledgeCash - Connexion</title>
+</head>
+<body>
+    <h1>Connexion</h1>
+    <form id="login-form">
+        <div>
+            <label for="username">Nom d'utilisateur:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Se connecter</button>
+    </form>
+    <p>Vous n'avez pas de compte ? <a href="register.html">S'inscrire</a></p>
+    <script>
+        // Soumission du formulaire de connexion
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            
+            // Envoyer les données de connexion au serveur (à implémenter)
+            // fetch('/login', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         username: username,
+            //         password: password
+            //     })
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     // Traiter la réponse du serveur (connexion réussie ou échec)
+            // });
+        });
+    </script>
+</body>
+</html>
